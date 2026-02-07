@@ -75,13 +75,41 @@ function Navbar({ variant = 'solid' }) {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden relative z-20 backdrop-blur-md border-t border-white/10" style={{ backgroundColor: `${colors.primary[950]}f2` }}>
-          <div className="flex flex-col px-6 py-4 space-y-1">
+        <div
+          className="lg:hidden absolute left-0 right-0 top-0 z-50 pb-8"
+          style={{ backgroundColor: colors.primary[950] }}
+        >
+          {/* Duplicate header row so it sits on top seamlessly */}
+          <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 pt-4 sm:pt-5 pb-3">
+            <Link to="/" className="block" onClick={() => setMobileMenuOpen(false)}>
+              <img src={logoImage} alt="Campaign Logo" className="h-20 sm:h-24 md:h-28 w-auto" />
+            </Link>
+            <div className="flex items-center gap-3">
+              <a
+                href={siteData.campaign.donateUrl}
+                className="bg-accent-400 hover:bg-accent-500 text-primary-950 font-bold px-5 py-2 rounded transition-colors duration-200 shadow-lg text-sm tracking-wider"
+              >
+                DONATE
+              </a>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-white p-1.5"
+                aria-label="Close menu"
+              >
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Nav Links */}
+          <div className="flex flex-col px-6 pt-2">
             {navLinks.map((link) =>
               <div key={link.label}>
                 {renderLink(
                   link,
-                  'text-white text-sm font-semibold tracking-[0.15em] uppercase hover:text-accent-400 transition-colors py-2.5 border-b border-white/5 last:border-0 block',
+                  'text-white text-lg font-bold tracking-[0.2em] uppercase py-4 border-b border-white/10 hover:text-accent-400 transition-colors block',
                   () => setMobileMenuOpen(false)
                 )}
               </div>
